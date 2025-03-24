@@ -21,6 +21,7 @@ export default function Home() {
             .
           </li>
           <li>Save and see your changes instantly.</li>
+          <li className="mt-3">Estava CERTO PORRA</li>
         </ol>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
