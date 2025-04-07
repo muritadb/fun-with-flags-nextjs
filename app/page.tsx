@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { Card, Grid, Footer, Header } from "./components"
+import { countriesApi } from './services'
 import {  z } from 'zod'
 
 const countrySchema = z.object({
@@ -28,6 +29,15 @@ export default function Home() {
   useEffect(() => {
     const fetchCountries = async () => {
    
+    const [response, error] = await countriesApi.getAll()
+    setLoading(false)
+
+    if(error) {
+      setError(error)
+      return
+    }
+
+    setCountries(response)
     }
 
     fetchCountries()

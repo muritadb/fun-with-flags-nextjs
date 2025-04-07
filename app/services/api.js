@@ -1,18 +1,7 @@
-try {
-  const response = await fetch('https://restcountries.com/v3.1/all?fields=cca3,flags,name,capital,region,population')
-  const data = await response.json()
-  setCountries(data)
-} catch(error) {
-  setError("Failed to fech data")
-  console.log(error)
-} finally {
-  setLoading(false)
-}
-
-const apiClient = () => ({
+const apiClient = (baseUrl) => ({
   async get(endpoint) {
     try {
-      const response = await fetch(endpoint)
+      const response = await fetch(`${baseUrl}${endpoint}`)
 
       if(!response.ok) {
         return [null, `HTTP error! status: ${response.statusText}`]
@@ -26,3 +15,11 @@ const apiClient = () => ({
     }
   }
 })
+
+const api = apiClient('https://restcountries.com/v3.1')
+
+const countriesApi = {
+  getAll: () => api.get('/all?fields=cca3,flags,name,capital,region,population')
+}
+
+export { countriesApi }
