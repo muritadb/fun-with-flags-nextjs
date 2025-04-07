@@ -18,6 +18,8 @@ const countrySchema = z.object({
   population: z.number()
 })
 
+console.log('countrySchema', countrySchema)
+
 type Country = z.infer<typeof countrySchema>
 
 export default function Home() {
