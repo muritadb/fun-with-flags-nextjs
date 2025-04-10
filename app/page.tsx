@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { Card, Grid, Footer, Header } from "./components"
 import { countriesApi } from './services'
 import {  z } from 'zod'
+import Link from "next/link"
 
 const countrySchema = z.object({
   cca3: z.string(),
@@ -60,15 +61,16 @@ export default function Home() {
             const [capitalName] = capital ?? []
 
             return (
-              <Card 
-                index={index}
-                key={cca3}
-                flag={flag}
-                name={countryName} 
-                capital={capitalName} 
-                region={region} 
-                population={population}
-              />
+              <Link  key={cca3}  href={`/country/${cca3}`}>
+                <Card 
+                  index={index}
+                  flag={flag}
+                  name={countryName} 
+                  capital={capitalName} 
+                  region={region} 
+                  population={population}
+                />
+              </Link>
             )
           })
         }  
