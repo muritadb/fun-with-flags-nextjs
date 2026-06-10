@@ -28,30 +28,6 @@ type DetailedCountry = {
   borders: string[]
 }
 
-//******PARA TIPAR COM ZOD */
-// const DetailedCountry = z.object({
-//   cca3: z.string(),
-//   flags: z.object({
-//     svg: z.string()
-//   }),
-//   name: z.object({
-//     common: z.string()
-//   }),
-//   capital: z.string().array(),
-//   region: z.string(),
-//   population: z.number(),
-//   languages: z.record(z.string()),
-//   currencies: z.record(z.object({
-//     name: z.string(),
-//     symbol: z.string()
-//   })),
-//   tld: z.string().array(),
-//   borders: z.string().array()
-// });
-// type DetailedCountry = z.infer<typeof DetailedCountry>
-
-//console.log('DetailedCountry', DetailedCountry)
-
 export default function Country() {
   const params = useParams<Params>()
   const [id, setId] = useState<string | null>(null)
@@ -87,8 +63,6 @@ export default function Country() {
   if (loading) return <div>Loading ...</div>
   if (error) return <div>{error}</div>
 
-  console.log(country)
-
   const { 
     flags, 
     name,
@@ -111,8 +85,8 @@ export default function Country() {
     .join(', ')
 
   const [topLevelDomain] = tld ?? []
-  const bordersIds = borders?.join(', ') ?? ''
-  
+  const bordersIds = borders ?? []
+
 
   return (
     <>
@@ -137,33 +111,32 @@ export default function Country() {
       <div  className="flex flex-col justify-center p-6 text-sm text-gray-600">
         <h2 className="text-xl font-semibold mb-4">{countryName} ({id})</h2>
         <div className="space-y-2">
-          <div className="flex items-center gap-1">
-            <span className="font-semibold">Capital:</span>
-            <span>{capitalName}</span>
+          <div>
+            <span className="font-semibold">Capital:</span> {capitalName}
           </div>
-          <div className="flex items-center gap-1">
-            <span className="font-semibold">Region:</span>
-            <span>{region}</span>
+          <div>
+            <span className="font-semibold">Region:</span> {region}
           </div>
-          <div className="flex items-center gap-1">
-            <span className="font-semibold">Population:</span>
-            <span>{population}</span>
+          <div>
+            <span className="font-semibold">Population:</span> {population}
           </div>
-          <div className="flex items-center gap-1">
-            <span className="font-semibold">Languages:</span>
-            <span>{languagesNames}</span>
+          <div>
+            <span className="font-semibold">Languages:</span> {languagesNames}
           </div>
-          <div className="flex items-center gap-1">
-            <span className="font-semibold">Currencies:</span>
-            <span>{currenciesNames}</span>
+          <div>
+            <span className="font-semibold">Currencies:</span> {currenciesNames}
           </div>
-          <div className="flex items-center gap-1">
-            <span className="font-semibold">Top Level Domain:</span>
-            <span>{topLevelDomain}</span>
+          <div>
+            <span className="font-semibold">Top Level Domain:</span> {topLevelDomain}
           </div>
-          <div className="flex items-center gap-1">
-            <span className="font-semibold">Borders:</span>
-            <span>{bordersIds}</span>
+          <div className="md:max-w-80">
+            <span className="font-semibold">Borders:</span> {bordersIds.length > 0 ? bordersIds.map(
+              (borderId) => <Link href={`/country/${borderId}`} key={borderId}>
+                <button  className="bg-gray-400 hover:bg-gray-300 text-xs mb-[6px] mr-[6px] py-[1.5px] px-[6px] rounded cursor-pointer">
+                  {borderId}
+                </button>
+              </Link>) 
+              : 'None'}
           </div>
         </div>
       </div>

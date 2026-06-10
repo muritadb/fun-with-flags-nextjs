@@ -26,7 +26,7 @@ const baseFields = "cca3,flags,name,capital,region,population"
 const countriesApi = {
   getAll: () => api.get(`/all?fields=${baseFields}`),
   getCountry: (id) => 
-    api.get(`/alpha/${id}?fields=${baseFields},languages,currencies,tld, borders`),
+    api.get(`/alpha/${id}?fields=${baseFields},languages,currencies,tld,borders`),
 };
 
 export { countriesApi };
